@@ -1,0 +1,15 @@
+.context-menu {
+    padding: 0px;
+    max-width: 300px;
+    position: absolute;
+    list-style: none;
+    position: absolute;
+    background-color: black;
+    font-size: 20px;
+    color: white;
+}
+
+.context-menu li {
+    padding: 10px;
+    border: white 1px solid ;
+}

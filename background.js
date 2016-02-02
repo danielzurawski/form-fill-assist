@@ -23,7 +23,7 @@ function toggleContextIntercept() {
     sendToAllTabs({ type: 'contextToggle', contextToggle: toggleContext });
 }
 
-function fetchFieldsAndNotify(request) {
+function fetchFieldsAndNotify(request, sendResponse) {
     if (! request.tabId) return;
 
     activeFormTabId = request.tabId;
@@ -32,7 +32,7 @@ function fetchFieldsAndNotify(request) {
         if (! fields) return;
 
         activeFields = fields.formFields;
-        sendToAllTabs({ type: 'formFields', formFields: activeFields });
+        sendToAllTabs({ type: 'formFields', formFields: activeFields }, sendResponse);
     });
 }
 
@@ -43,10 +43,11 @@ function selectFormFields(request, sendResponse) {
     }
 }
 
-function sendToAllTabs(data) {
+function sendToAllTabs(data, cb) {
     chrome.tabs.query({}, function(tabs) {
        tabs.forEach(function(t) {
            chrome.tabs.sendMessage(t.id, data);
+           if (cb) cb();
        });
     });
 }
@@ -58,4 +59,5 @@ function filloutProxy(request, sendResponse) {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     request.type && HANDLERS[request.type] && HANDLERS[request.type](request, sendResponse);
+    return true;
 });

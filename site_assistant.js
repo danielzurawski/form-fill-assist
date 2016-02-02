@@ -37,7 +37,9 @@ function onFillout(fieldName, selectedText, menu) {
 
 function toggleMenu(e, selectedText) {
     var menu = document.createElement('ul');
-    
+    menu.classList.add("site-assistant");
+    menu.classList.add("context-menu");
+
     Array.apply(null, formFields.map(function(b) {
         var li = document.createElement('li');
         li.appendChild(document.createTextNode(b.title));
@@ -48,16 +50,12 @@ function toggleMenu(e, selectedText) {
     });
     
     menu.style.left = e.pageX + 'px';
-    menu.style.top = e.pageY + 'px';
-    menu.style.position = 'absolute';
-    menu.style.background='black';
-    menu.style.color='white';
-    menu.style.fontSize='25px';
+    menu.style.top = e.pageY-200 + 'px';
 
     document.querySelector('body').appendChild(menu);
     document.addEventListener('click', function() {
         setTimeout(function() {
             menu.remove();
-        }, 100);
+        }, 0);
     });
 }

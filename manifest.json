@@ -16,7 +16,7 @@
 	{
 	    "matches": ["<all_urls>"],
 	    "exclude_matches": ["http://skep.obpon.pl/*"],
-	    //"css": ["mystyles.css"],
+	    "css": ["site_assistant_style.css"],
 	    "js": ["site_assistant.js"]
 	},
 	{
