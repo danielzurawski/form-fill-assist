@@ -9,6 +9,21 @@
 	"default_popup": "popup.html",
 	"default_title": "Activate form assistant"
     },
+    "background": {
+	"scripts": ["background.js"]
+    },
+    "content_scripts": [
+	{
+	    "matches": ["<all_urls>"],
+	    "exclude_matches": ["http://skep.obpon.pl/*"],
+	    //"css": ["mystyles.css"],
+	    "js": ["site_assistant.js"]
+	},
+	{
+	    "matches": ["http://skep.obpon.pl/job/dojob/*"],
+	    "js": ["form_assistant.js"]
+	}
+    ],
     "permissions": [
 	"activeTab",
 	"tabs"  
