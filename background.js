@@ -10,9 +10,13 @@ var HANDLERS = {
     fetchFieldsAndNotify: fetchFieldsAndNotify,
     fillout: filloutProxy,
     toggleContextIntercept: toggleContextIntercept,
-    getContextIntercept: getContextIntercept
+    getContextIntercept: getContextIntercept,
+    getCurrentTabId: getCurrentTabId
 };
 
+function getCurrentTabId(request, sendResponse) {
+    sendResponse(activeFormTabId);
+}
 
 function getContextIntercept(request, sendResponse) {
     sendResponse(toggleContext);
@@ -28,12 +32,18 @@ function fetchFieldsAndNotify(request, sendResponse) {
 
     activeFormTabId = request.tabId;
 
-    chrome.tabs.sendMessage(request.tabId, { type: 'selectFormFields' }, function (fields) {
-        if (! fields) return;
+    if (activeFields) notify();
+    else
+        chrome.tabs.sendMessage(request.tabId, { type: 'selectFormFields' }, function (fields) {
+            if (! fields) return;
 
-        activeFields = fields.formFields;
+            activeFields = fields.formFields;
+            notify();
+        });
+
+    function notify() {
         sendToAllTabs({ type: 'formFields', formFields: activeFields }, sendResponse);
-    });
+    }
 }
 
 function selectFormFields(request, sendResponse) {

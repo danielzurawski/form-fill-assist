@@ -1,7 +1,7 @@
 'use strict';
 
 function toggleContext() {
-    var btnToggleContext = document.getElementById('toggleContextIntercept');
+    var btnToggleContext = document.getElementById('ffa_toggleContextIntercept');
     btnToggleContext.addEventListener('click', function() {
         chrome.runtime.sendMessage({ type: 'toggleContextIntercept' });
     });
@@ -17,18 +17,26 @@ function getTabs(callback) {
 function onSelectForm(tab, li) {
     return function() {
         chrome.runtime.sendMessage({ type: 'fetchFieldsAndNotify', tabId: tab.id }, function() {
-            li.style.backgroundColor = 'red';
+            var tabs = document.getElementById('ffa_tabs');
+            Array.prototype.forEach.call(tabs.childNodes, function( t ){
+                t.classList.remove('active');
+            });
+
+            li.classList.add('active');
         });
     };
 };
 
 function setupFormActivation(tabs) {
-    var tabsUl = document.getElementById('tabs');
-    tabs.forEach(function(tab) {
-        var newLi = document.createElement('li');
-        newLi.appendChild(document.createTextNode(tab.url));
-        newLi.onclick = onSelectForm(tab, newLi);
-        tabsUl.appendChild(newLi);
+    chrome.runtime.sendMessage({ type: 'getCurrentTabId' }, function(currentTabId) {
+        var tabsUl = document.getElementById('ffa_tabs');
+        tabs.forEach(function(tab) {
+            var newLi = document.createElement('li');
+            if (currentTabId && currentTabId == tab.id) newLi.classList.add('active');
+            newLi.appendChild(document.createTextNode(tab.url));
+            newLi.onclick = onSelectForm(tab, newLi);
+            tabsUl.appendChild(newLi);
+        });
     });
 }
 

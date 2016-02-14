@@ -2,25 +2,14 @@
 <html>
   <head>
     <title>Form Filling Assistante</title>
-    <style>
-      body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-      }
-    </style>
-
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
+    <link rel="stylesheet" href="popup.css" type="text/css">
     <script src="popup.js"></script>
   </head>
   <body>
     <div>
-      <ul id="tabs"></ul>
-      <button id="toggleContextIntercept">Prawy przycisk</button>
+      <h1>Detected forms</h1>
+      <ul id="ffa_tabs"></ul>
+      <button id="ffa_toggleContextIntercept">Toggle</button>
     </div>
   </body>
 </html>

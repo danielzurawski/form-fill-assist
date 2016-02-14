@@ -3,14 +3,14 @@
 
     "name": "form-fill-assist",
     "description": "This extension assists with populating form fields during lead extraction in a different tab.",
-    "version": "0.1",
+    "version": "0.2",
     "browser_action": {
-	"default_icon": "icon.png",
-	"default_popup": "popup.html",
-	"default_title": "Activate form assistant"
+	    "default_icon": "ic_speaker_notes_black_48dp_2x.png",
+	    "default_popup": "popup.html",
+	    "default_title": "Activate form assistant"
     },
     "background": {
-	"scripts": ["background.js"]
+	    "scripts": ["background.js"]
     },
     "content_scripts": [
 	{
@@ -25,7 +25,11 @@
 	}
     ],
     "permissions": [
-	"activeTab",
-	"tabs"  
-    ]
+	    "activeTab",
+	    "tabs"
+    ],
+    "icons": {
+        "48": "ic_speaker_notes_black_48dp_2x.png",
+        "128": "ic_speaker_notes_black_48dp_2x.png"
+    }
 }
