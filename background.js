@@ -55,10 +55,10 @@ function selectFormFields(request, sendResponse) {
 
 function sendToAllTabs(data, cb) {
     chrome.tabs.query({}, function(tabs) {
-       tabs.forEach(function(t) {
-           chrome.tabs.sendMessage(t.id, data);
-           if (cb) cb();
-       });
+        tabs.forEach(function(t) {
+            chrome.tabs.sendMessage(t.id, data);
+            if (cb) cb();
+        });
     });
 }
 

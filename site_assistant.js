@@ -25,11 +25,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 window.addEventListener('contextmenu', function(e) {
     if (! contextToggle) return;
     e.preventDefault();
-    var selectedText = window.getSelection().toString();
+    var selectedText = e.target.innerText;
     if (! selectedText || ! formFields) return;
 
     toggleMenu(e, selectedText);
-    //console.log('selected text', selectedText, 'formFields', formFields);
 });
 
 function onFillout(fieldName, selectedText, menu) {
